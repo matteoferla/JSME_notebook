@@ -29,6 +29,16 @@ For it to work in both Colab and in a Jupyter notebook,
 the instance in Jupyter relies on pointers —so reassignment of the object name or deletion of the object 
 will cause a segfault when the view is altered.
 
+As an extra, there's an alternative way to use it, i.e. via Rdkit:
+
+```python
+from jsme_hack.rdkit import JSMERdit
+
+mol: Chem.Mol = ...
+jsme = JSMERdit(mol)
+```
+
+
 ## JSME in a notebook
 
 [JSME Molecule Editor](https://jsme-editor.github.io/) is a great tool for creating and editing molecules.
