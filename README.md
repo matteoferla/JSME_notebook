@@ -2,8 +2,17 @@
 JSME molecular editor in a Jupyter or Colab notebook in a hacky way.
 
 > This is not expected to be stable, but works as an interim solution.
+> 
+> The following discussion talks about Jupyter vs. Colab differences: 
+> for more see [my blog post about it](https://blog.matteoferla.com/2022/05/js-in-colab.html)
 
 This should be a widget (see below), but it is not for a series of reasons.
+
+As a result I am not going to pip release it:
+
+```bash
+pip install git+https://github.com/matteoferla/JSME_notebook_hack.git
+```
 
 ## Example
 
@@ -40,9 +49,6 @@ The first raises a JS error and has only 6 watchers, despite having documentatio
 As a result I decided to make it into a package, but it turned out to be a rabbit hole of madness.
 
 ## Proper widget?
-
-> This section talks about Jupyter vs. Colab differences: 
-> for more see [my blog post about it](https://blog.matteoferla.com/2022/05/js-in-colab.html)
 
 JSME_ipywidget is very interesting as it does not make a widget via the bizantine widget cookiecutter,
 but circumvents it by getting `DOMWidgetView` from `'@jupyter-widgets/base'` by RequireJS
