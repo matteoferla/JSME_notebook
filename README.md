@@ -14,11 +14,12 @@ As a result I am not going to pip release it:
 pip install git+https://github.com/matteoferla/JSME_notebook_hack.git
 ```
 
+[![jsme in googlecolab demo](https://img.shields.io/badge/colabs-demo.ipynb-f9ab00?logo=googlecolab)](https://colab.research.google.com/github/matteoferla/JSME_notebook_hack/blob/main/demo.ipynb)
+
 ## Example
 
 ```python
 from jsme_hack import JSMEHack
-smiles = 'CCCC'
 jsme = JSMEHack('CCCC')  # outputs to display...
 None
 ```
