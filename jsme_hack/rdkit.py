@@ -19,7 +19,7 @@ class JSMERDKit(JSMEHack):
     """
 
     @singledispatchmethod
-    def __init__(self, smiles: Optional[str]=None):
+    def __init__(self, smiles: Optional[str]=None, cdn_url: Optional[str]=None):
         """
         Single dispatch method which can accept a smiles string or a rdkit mol.
         :param smiles:
@@ -29,11 +29,11 @@ class JSMERDKit(JSMEHack):
         elif smiles.count('\n'):  # molblock
             mol_block = smiles
             smiles=Chem.MolToSmiles(Chem.MolFromMolBlock(mol_block))
-        super().__init__(smiles)
+        super().__init__(smiles, cdn_url=cdn_url)
 
     @__init__.register
-    def _(self, mol: Chem.Mol):
-        super().__init__(Chem.MolToSmiles(mol))
+    def _(self, mol: Chem.Mol, cdn_url: Optional[str]=None):
+        super().__init__(Chem.MolToSmiles(mol), cdn_url=cdn_url)
 
     @property
     def mol(self) -> Chem.Mol:

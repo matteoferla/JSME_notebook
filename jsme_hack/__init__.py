@@ -28,28 +28,32 @@ class JSMEHack:
     attribute of the JSMEHack instance by fetching it by its id.
     Pointers are not welcome in Python as a miscast pointer can result in a segfault.
     """
+    default_cdn_url = 'https://users.ox.ac.uk/~bioc1451/jsme/jsme.nocache.js'
 
     @staticmethod
     def get_by_id(address) -> 'JSMEHack':
         return ctypes.cast(address, ctypes.py_object).value
 
-    def set_smiles(self, smiles):
+    def _set_smiles(self, smiles):
         self.smiles = smiles
 
     def __init__(self,
                  smiles: Optional[str] = None,
-                 cdn_url: str = 'https://users.ox.ac.uk/~bioc1451/jsme/jsme.nocache.js',
+                 cdn_url: Optional[str] = None,
                  ):
         if smiles is None:
             smiles = ''
         self.smiles = smiles
+        if cdn_url is None:
+            cdn_url = self.default_cdn_url
         if IN_COLAB:
-            output.register_callback('notebook.set_smiles', lambda new_smiles: self.set_smiles(new_smiles))
-        container_id = 'jsme_container_'+hash(self)
-        display(HTML('<script type="text/javascript" language="javascript" src="{cdn_url}"></script>' +
+            output.register_callback('notebook.set_smiles', lambda new_smiles: self._set_smiles(new_smiles))
+        container_id = f'jsme_container_{hash(self)}'
+        display(HTML(f'<script type="text/javascript" language="javascript" src="{cdn_url}"></script>' +
                      '<script>' +
-                     f'window.smiles = "{smiles}"; window.py_obj_id = {id(self)}' +
-                     f'window.container_id = "{container_id}";' +
+                     f'window.smiles = "{smiles}";\n window.py_obj_id = {id(self)};\n' +
+                     f'window.container_id = "{container_id}";\n' +
+                     f'window.py_class_name = "{self.__class__.__name__}";\n' +
                      '''
                      //this function will be called after the JavaScriptApplet code has been loaded.
                          function jsmeOnLoad() {
@@ -65,7 +69,8 @@ class JSMEHack:
                                if (window.google !== undefined) {
                                  await google.colab.kernel.invokeFunction('notebook.set_smiles', [smiles]);
                               } else if (window.Jupyter !== undefined) {
-                             Jupyter.notebook.kernel.execute(`JSMEHack.get_by_id(${py_obj_id}).smiles = '${smiles}'`);
+                              console.log(`JSMEHack.get_by_id(${py_obj_id}).smiles = '${smiles}'`);
+                             Jupyter.notebook.kernel.execute(`${py_class_name}.get_by_id(${py_obj_id}).smiles = '${smiles}'`);
                                }
                                else {throw "Unknown environment";}
                              });
