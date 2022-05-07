@@ -1,9 +1,9 @@
-from distutils.core import setup
+from distutils.core import setup, find_packages
 
 setup(
     name='jsme_hack',
     version='0.1',
-    packages=['jsme_hack'],
+    packages=find_packages(),
     url='https://github.com/matteoferla/JSME_notebook_hack',
     license='MIT',
     author='Matteo Ferla',
