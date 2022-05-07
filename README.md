@@ -16,6 +16,9 @@ pip install git+https://github.com/matteoferla/JSME_notebook_hack.git
 
 [![jsme in googlecolab demo](https://img.shields.io/badge/colabs-demo.ipynb-f9ab00?logo=googlecolab)](https://colab.research.google.com/github/matteoferla/JSME_notebook_hack/blob/main/demo.ipynb)
 
+I think it may be possible to make `comms` to work with it, thus removing the weirdness.
+Were it done, it would no longer be that hacky.
+
 ## Example
 
 ```python
@@ -37,8 +40,6 @@ from jsme_hack.rdkit import JSMERDKit
 mol: Chem.Mol = ...
 jsme = JSMERDKit(mol)
 ```
-
-
 ## JSME in a notebook
 
 [JSME Molecule Editor](https://jsme-editor.github.io/) is a great tool for creating and editing molecules.
