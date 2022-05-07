@@ -1,5 +1,6 @@
 from IPython.display import display, HTML
 import ctypes
+from typing import Optional
 
 # ------------------- Deal with Colab vs Jupyter -------------------
 import importlib.util
@@ -36,7 +37,9 @@ class JSMEHack:
     def set_smiles(self, smiles):
         self.smiles = smiles
 
-    def __init__(self, smiles):
+    def __init__(self, smiles:Optional[str]=None):
+        if smiles is None:
+            smiles = ''
         self.smiles = smiles
         if IN_COLAB:
             output.register_callback('notebook.set_smiles', lambda smiles: self.set_smiles(smiles))
@@ -47,7 +50,7 @@ class JSMEHack:
                      '''
                      //this function will be called after the JavaScriptApplet code has been loaded.
                          function jsmeOnLoad() {
-                             const params = {smiles: smiles};
+                             const params = {smiles: smiles || undefined};
                              const jsmeApplet = new JSApplet.JSME("jsme_container", "380px", "340px", params);
                              window.jsmeApplet = jsmeApplet;
                              jsmeApplet.setCallBack("AfterStructureModified", async (jsme) => {
