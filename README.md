@@ -55,6 +55,7 @@ one worked for me, but is not a package.
 * [trident-chemwidgets](https://github.com/tridentbio/trident-chemwidgets) - raises a JS error
 * [panel-chemistry](https://github.com/MarcSkovMadsen/panel-chemistry) - is for the Panel framework
 * [JSME_ipywidget](https://github.com/lithium0003/JSME_ipywidget) - a very nice jupyter notebook
+* [rdkit_ipynb_tools](https://github.com/apahl/rdkit_ipynb_tools) - I only spotted this afterwards (Jupyter notebook only)
 
 The latter shows it is possible, but is not a module.
 The first raises a JS error and has only 6 watchers, despite having documentation.
