@@ -36,22 +36,25 @@ class JSMEHack:
     def set_smiles(self, smiles):
         self.smiles = smiles
 
-    def __init__(self, smiles: Optional[str] = None):
+    def __init__(self,
+                 smiles: Optional[str] = None,
+                 cdn_url: str = 'https://users.ox.ac.uk/~bioc1451/jsme/jsme.nocache.js',
+                 ):
         if smiles is None:
             smiles = ''
         self.smiles = smiles
         if IN_COLAB:
             output.register_callback('notebook.set_smiles', lambda new_smiles: self.set_smiles(new_smiles))
-        display(HTML('''
-    <script type="text/javascript" language="javascript" 
-    src="https://users.ox.ac.uk/~bioc1451/jsme/jsme.nocache.js"></script>
-    <script>''' +
+        container_id = 'jsme_container_'+hash(self)
+        display(HTML('<script type="text/javascript" language="javascript" src="{cdn_url}"></script>' +
+                     '<script>' +
                      f'window.smiles = "{smiles}"; window.py_obj_id = {id(self)}' +
+                     f'window.container_id = "{container_id}";' +
                      '''
                      //this function will be called after the JavaScriptApplet code has been loaded.
                          function jsmeOnLoad() {
                              const params = {smiles: smiles || undefined};
-                             const jsmeApplet = new JSApplet.JSME("jsme_container", "380px", "340px", params);
+                             const jsmeApplet = new JSApplet.JSME(window.container_id, "380px", "340px", params);
                              window.jsmeApplet = jsmeApplet;
                              jsmeApplet.setCallBack("AfterStructureModified", async (jsme) => {
                                smiles = jsmeApplet.smiles();
@@ -67,6 +70,6 @@ class JSMEHack:
                                else {throw "Unknown environment";}
                              });
                        }
-                     </script>
-                     <div id="jsme_container"></div>
-                     '''))
+                     </script>'''+
+                     f'<div id="{container_id}"></div>'
+                     ))
