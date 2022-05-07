@@ -9,7 +9,7 @@ IN_COLAB = get_ipython().__class__.__name__ == 'Shell'
 if not IN_COLAB:
     pass
 elif importlib.util.find_spec('google'):
-    from google.colab import output
+    from google.colab import output  # noqa
 else:
     raise SystemError("The IPython shell thinks it's Colab, but there's no `google.colab`!")
 
@@ -19,7 +19,6 @@ else:
 class JSMEHack:
     """
     .. code-block:: python
-      smiles = 'CCCC'
       jsme = JSMEHack('CCCC')
 
     ``jsme.smiles`` will change based on the JSME viewport.
@@ -37,14 +36,15 @@ class JSMEHack:
     def set_smiles(self, smiles):
         self.smiles = smiles
 
-    def __init__(self, smiles:Optional[str]=None):
+    def __init__(self, smiles: Optional[str] = None):
         if smiles is None:
             smiles = ''
         self.smiles = smiles
         if IN_COLAB:
-            output.register_callback('notebook.set_smiles', lambda smiles: self.set_smiles(smiles))
+            output.register_callback('notebook.set_smiles', lambda new_smiles: self.set_smiles(new_smiles))
         display(HTML('''
-    <script type="text/javascript" language="javascript" src="https://users.ox.ac.uk/~bioc1451/jsme/jsme.nocache.js"></script>
+    <script type="text/javascript" language="javascript" 
+    src="https://users.ox.ac.uk/~bioc1451/jsme/jsme.nocache.js"></script>
     <script>''' +
                      f'window.smiles = "{smiles}"; window.py_obj_id = {id(self)}' +
                      '''
