@@ -10,10 +10,20 @@ if sys.version_info.minor <= 7:
 else:
     from functools import singledispatchmethod
 
-class JSMERdkit(JSMEHack):
+class JSMERDKit(JSMEHack):
     # yes, I known what mer+rd spells.
+    """
+    Subclass of JSMEHack that uses RDKit to perform chemical operations.
+    Initialisation accepts a smiles, mol block, rdkit.Chem.Mol, or None.
+    The (read-only) property mol gives a rdkit.Chem.Mol object.
+    """
+
     @singledispatchmethod
     def __init__(self, smiles: Optional[str]=None):
+        """
+        Single dispatch method which can accept a smiles string or a rdkit mol.
+        :param smiles:
+        """
         if smiles is None:
             pass
         elif smiles.count('\n'):  # molblock
@@ -24,3 +34,7 @@ class JSMERdkit(JSMEHack):
     @__init__.register
     def _(self, mol: Chem.Mol):
         super().__init__(Chem.MolToSmiles(mol))
+
+    @property
+    def mol(self) -> Chem.Mol:
+        return Chem.MolFromSmiles(self.smiles)

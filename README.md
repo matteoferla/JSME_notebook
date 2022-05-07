@@ -32,10 +32,10 @@ will cause a segfault when the view is altered.
 As an extra, there's an alternative way to use it, i.e. via Rdkit:
 
 ```python
-from jsme_hack.rdkit import JSMERdit
+from jsme_hack.rdkit import JSMERDKit
 
 mol: Chem.Mol = ...
-jsme = JSMERdit(mol)
+jsme = JSMERDKit(mol)
 ```
 
 
