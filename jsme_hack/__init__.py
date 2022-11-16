@@ -28,7 +28,8 @@ class JSMEHack:
     attribute of the JSMEHack instance by fetching it by its id.
     Pointers are not welcome in Python as a miscast pointer can result in a segfault.
     """
-    default_cdn_url = 'https://users.ox.ac.uk/~bioc1451/jsme/jsme.nocache.js'
+    #default_cdn_url = 'https://users.ox.ac.uk/~bioc1451/jsme/jsme.nocache.js'  # this service is no longer available
+    default_cdn_url = 'https://www.stats.ox.ac.uk/~ferla/jsme/jsme.nocache.js'
 
     @staticmethod
     def get_by_id(address) -> 'JSMEHack':
@@ -48,11 +49,11 @@ class JSMEHack:
             cdn_url = self.default_cdn_url
         if IN_COLAB:
             output.register_callback('notebook.set_smiles', lambda new_smiles: self._set_smiles(new_smiles))
-        container_id = f'jsme_container_{hash(self)}'
+        self.container_id = f'jsme_container_{hash(self)}'
         display(HTML(f'<script type="text/javascript" language="javascript" src="{cdn_url}"></script>' +
                      '<script>' +
                      f'window.smiles = "{smiles}";\n window.py_obj_id = {id(self)};\n' +
-                     f'window.container_id = "{container_id}";\n' +
+                     f'window.container_id = "{self.container_id}";\n' +
                      f'window.py_class_name = "{self.__class__.__name__}";\n' +
                      '''
                      //this function will be called after the JavaScriptApplet code has been loaded.
@@ -76,5 +77,5 @@ class JSMEHack:
                              });
                        }
                      </script>'''+
-                     f'<div id="{container_id}"></div>'
+                     f'<div id="{self.container_id}"></div>'
                      ))
