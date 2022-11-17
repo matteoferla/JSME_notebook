@@ -28,8 +28,7 @@ class JSMEHack:
     attribute of the JSMEHack instance by fetching it by its id.
     Pointers are not welcome in Python as a miscast pointer can result in a segfault.
     """
-    #default_cdn_url = 'https://users.ox.ac.uk/~bioc1451/jsme/jsme.nocache.js'  # this service is no longer available
-    default_cdn_url = 'https://www.stats.ox.ac.uk/~ferla/jsme/jsme.nocache.js'
+    default_cdn_url = 'https://users.ox.ac.uk/~bioc1451/jsme/jsme.nocache.js'
 
     @staticmethod
     def get_by_id(address) -> 'JSMEHack':
