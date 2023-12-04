@@ -42,6 +42,13 @@ from jsme_notebook.rdkit import JSMERDKit
 mol: Chem.Mol = ...
 jsme = JSMERDKit(mol)
 ```
+### Examples in the wild
+This is not intended to be exhaustive.
+
+* The [DTC SABS tutorial](https://github.com/matteoferla/DTC-compchem-practical ) has this 
+[Colab notebook](https://colab.research.google.com/github/matteoferla/DTC-compchem-practical/blob/main/1_basics.ipynb).
+* [Fragmenstein repo](https://github.com/matteoferla/Fragmenstein) has this [Colab notebook](https://colab.research.google.com/github/matteoferla/Fragmenstein/blob/master/colab_fragmenstein.ipynb).
+
 ## JSME in a notebook
 
 [JSME Molecule Editor](https://jsme-editor.github.io/) is a great tool for creating and editing molecules.
