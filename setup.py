@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='jsme_hack',
+    name='jsme_notebook',
     version='0.1.2',
     packages=find_packages(),
     url='https://github.com/matteoferla/JSME_notebook_hack',

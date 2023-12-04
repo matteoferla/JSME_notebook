@@ -1,5 +1,5 @@
 from rdkit import Chem
-from . import JSMEHack
+from . import JSMENotebook
 from typing import Optional
 
 import sys
@@ -10,10 +10,10 @@ if sys.version_info.minor <= 7:
 else:
     from functools import singledispatchmethod
 
-class JSMERDKit(JSMEHack):
+class JSMERDKit(JSMENotebook):
     # yes, I known what mer+rd spells.
     """
-    Subclass of JSMEHack that uses RDKit to perform chemical operations.
+    Subclass of JSMEJSMENotebook that uses RDKit to perform chemical operations.
     Initialisation accepts a smiles, mol block, rdkit.Chem.Mol, or None.
     The (read-only) property mol gives a rdkit.Chem.Mol object.
     """

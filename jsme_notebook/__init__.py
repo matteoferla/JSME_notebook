@@ -1,5 +1,6 @@
 from IPython.display import display, HTML
 import ctypes
+from warnings import warn
 from typing import Optional
 
 # ------------------- Deal with Colab vs Jupyter -------------------
@@ -16,10 +17,10 @@ else:
 
 # ------------------- Define the class -------------------
 
-class JSMEHack:
+class JSMENotebook:
     """
     .. code-block:: python
-      jsme = JSMEHack('CCCC')
+      jsme = JSMENotebook('CCCC')
 
     ``jsme.smiles`` will change based on the JSME viewport.
 
@@ -78,3 +79,9 @@ class JSMEHack:
                      </script>'''+
                      f'<div id="{self.container_id}"></div>'
                      ))
+
+class JSMEHack(JSMENotebook):
+
+    def __init__(self, *args, **kwargs):
+        warn('JSMEHack is now JSMENotebook', DeprecationWarning)
+        super().__init__(*args, **kwargs)

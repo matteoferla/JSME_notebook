@@ -1,5 +1,6 @@
-# JSME_notebook_hack
-JSME molecular editor in a Jupyter or Colab notebook in a hacky way.
+# JSME notebook 
+JSME molecular editor in a Jupyter or Colab notebook.
+These two work in a very different manner and this is very inelegant, but works.
 
 > This is not expected to be stable, but works as an interim solution.
 > 
@@ -11,7 +12,7 @@ This should be a widget (see below), but it is not for a series of reasons.
 As a result I am not going to pip release it:
 
 ```bash
-pip install git+https://github.com/matteoferla/JSME_notebook_hack.git
+pip install git+https://github.com/matteoferla/JSME_notebook.git
 ```
 
 [![jsme in googlecolab demo](https://img.shields.io/badge/colabs-demo.ipynb-f9ab00?logo=googlecolab)](https://colab.research.google.com/github/matteoferla/JSME_notebook_hack/blob/main/demo.ipynb)
@@ -22,7 +23,8 @@ Were it done, it would no longer be that hacky.
 ## Example
 
 ```python
-from jsme_hack import JSMEHack
+from jsme_notebook import JSMEHack
+
 jsme = JSMEHack('CCCC')  # outputs to display...
 None
 ```
@@ -35,7 +37,7 @@ will cause a segfault when the view is altered.
 As an extra, there's an alternative way to use it, i.e. via Rdkit:
 
 ```python
-from jsme_hack.rdkit import JSMERDKit
+from jsme_notebook.rdkit import JSMERDKit
 
 mol: Chem.Mol = ...
 jsme = JSMERDKit(mol)
