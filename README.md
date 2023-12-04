@@ -12,7 +12,7 @@ This should be a widget (see below), but it is not for a series of reasons.
 As a result I am not going to pip release it:
 
 ```bash
-pip install git+https://github.com/matteoferla/JSME_notebook.git
+pip install jsme_notebook
 ```
 
 [![jsme in googlecolab demo](https://img.shields.io/badge/colabs-demo.ipynb-f9ab00?logo=googlecolab)](https://colab.research.google.com/github/matteoferla/JSME_notebook_hack/blob/main/demo.ipynb)
@@ -23,9 +23,9 @@ Were it done, it would no longer be that hacky.
 ## Example
 
 ```python
-from jsme_notebook import JSMEHack
+from jsme_notebook import JSMENotebook
 
-jsme = JSMEHack('CCCC')  # outputs to display...
+jsme = JSMENotebook('CCCC')  # outputs to display...
 None
 ```
 Changes to the molecule will be available in `jsme.smiles` in subsequent cells.
