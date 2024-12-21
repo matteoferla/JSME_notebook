@@ -41,6 +41,8 @@ class JSMENotebook:
     def __init__(self,
                  smiles: Optional[str] = None,
                  cdn_url: Optional[str] = None,
+                 width: Optional[Union[str, int]] = '380px',
+                 height: Optional[Union[str, int]] = '340px'
                  ):
         if smiles is None:
             smiles = ''
@@ -49,17 +51,26 @@ class JSMENotebook:
             cdn_url = self.default_cdn_url
         if IN_COLAB:
             output.register_callback('notebook.set_smiles', lambda new_smiles: self._set_smiles(new_smiles))
+        if isinstance(width, int):
+            width = f'{width}px'
+        if isinstance(height, int):
+            height = f'{height}px'
         self.container_id = f'jsme_container_{hash(self)}'
         display(HTML(f'<script type="text/javascript" language="javascript" src="{cdn_url}"></script>' +
                      '<script>' +
                      f'window.smiles = "{smiles}";\n window.py_obj_id = {id(self)};\n' +
                      f'window.container_id = "{self.container_id}";\n' +
                      f'window.py_class_name = "{self.__class__.__name__}";\n' +
+                     f'window.desired_height = "{height}";\n' +
+                     f'window.desired_width = "{width}";\n' +
                      '''
                      //this function will be called after the JavaScriptApplet code has been loaded.
                          function jsmeOnLoad() {
                              const params = {smiles: smiles || undefined};
-                             const jsmeApplet = new JSApplet.JSME(window.container_id, "380px", "340px", params);
+                             const jsmeApplet = new JSApplet.JSME(window.container_id, 
+                                                                  window.desired_width,
+                                                                  window.desired_height, 
+                                                                  params);
                              window.jsmeApplet = jsmeApplet;
                              jsmeApplet.setCallBack("AfterStructureModified", async (jsme) => {
                                smiles = jsmeApplet.smiles();

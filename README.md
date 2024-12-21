@@ -42,6 +42,14 @@ from jsme_notebook.rdkit import JSMERDKit
 mol: Chem.Mol = ...
 jsme = JSMERDKit(mol)
 ```
+
+height and width by defult are 340px and 380px, but can be changed.
+
+```python
+jsme = JSMENotebook('CCCC', height=200, width=200)
+print('window size is 200x200')
+```
+
 ### Examples in the wild
 This is not intended to be exhaustive.
 
