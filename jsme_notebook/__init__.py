@@ -1,7 +1,7 @@
 from IPython.display import display, HTML
 import ctypes
 from warnings import warn
-from typing import Optional
+from typing import Optional, Union
 
 # ------------------- Deal with Colab vs Jupyter -------------------
 import importlib.util
